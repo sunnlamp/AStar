@@ -9,9 +9,9 @@ public class Node {
 	
 	public String name; // Name of the node
 	
-	public int G = 0;
+	public int G = 0; // Cost so far to reach N
 	public int H = 0; // Heuristic cost
-	public int F = 0;
+	public int F = 0; // Estimated total cost of path through N to goal
 	
 	public int straightDist = 0; // Straight distance to Bucharest from this node
 	public int obstacles = 0; // If there are obstacles around this node, this variable will have a higher value
