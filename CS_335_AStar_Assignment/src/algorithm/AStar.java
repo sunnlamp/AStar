@@ -9,29 +9,37 @@ public class AStar {
 		
 		ArrayList<Node> openList = new ArrayList<Node>(); // OpenList stores the nodes that can be traveled to
 		ArrayList<Node> closedList = new ArrayList<Node>(); // ClosedList stores the node that are already visited
-		ArrayList<Node> path = new ArrayList<Node>();
+		
 		final int MAX_VALUE = 100000;
 		
-		openList.add(startNode);
-		path.add(startNode);
 		// Your code goes here...
+		openList.add(startNode);
+		PaintNodeBlue(endNode);
 		Node currNode = openList.get(0);
+		
 		while (openList.size() > 0) {
 			for (int j = 0; j < openList.size(); j++) {
 				if (openList.get(j).F < MAX_VALUE) {
 					currNode = openList.get(j);
 				}
 			}
-			openList.remove(currNode);
+			PaintNodeGreen(currNode);
 			for (int i = 0; i < currNode.adjacents.size(); i++) {
 				if (currNode == endNode) {
 					return;
 				}
+				PaintNodeYellow(currNode.adjacents.get(i));
 				currNode.adjacents.get(i).G = currNode.distancesToAdjacents.get(i);
 				currNode.adjacents.get(i).parentNode = currNode;
 				currNode.adjacents.get(i).G = currNode.G + currNode.adjacents.get(i).G;
 				currNode.adjacents.get(i).F = currNode.adjacents.get(i).G + currNode.adjacents.get(i).H;
+				PrintNodeCost(currNode.adjacents.get(i));
+				if (!closedList.contains(currNode.adjacents.get(i))) {
+					openList.add(currNode.adjacents.get(i));
+				}
 			}
+			closedList.add(currNode);
+			openList.remove(currNode);
 		}
 	}
 
